@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
 
     public void MovePlayer(InputAction.CallbackContext context)
     {
-        if (context.started)
+        if (context.performed)
         {
             if (_gameControllerScript.IsGameOver) return;
 
@@ -76,7 +76,7 @@ public class Player : MonoBehaviour
         child.localPosition = localPos;
     }
 
-    public void Slash(InputAction.CallbackContext context, string validEnemyName)
+    public void Slash(InputAction.CallbackContext context, string validEnemyName, string slashAnimation)
     {
         if (!context.performed || _gameControllerScript.IsGameOver) return;
 
@@ -96,6 +96,8 @@ public class Player : MonoBehaviour
             Destroy(oldestEnemy);
             _gameControllerScript.IncrementScore();
             _enemiesController.SpawnEnemy(_positionX);
+            _animator.Play(slashAnimation);
+
         }
         else
         {
@@ -106,13 +108,11 @@ public class Player : MonoBehaviour
 
     public void SlashA(InputAction.CallbackContext context)
     {
-        Slash(context, "EnemyA");
-        _animator.Play(_slashA.name);
+        Slash(context, "EnemyA", _slashA.name);
     }
 
     public void SlashB(InputAction.CallbackContext context)
     {
-        Slash(context, "EnemyB");
-        _animator.Play(_slashB.name);
+        Slash(context, "EnemyB", _slashB.name);
     }
 }

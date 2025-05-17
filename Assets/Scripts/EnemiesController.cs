@@ -40,6 +40,7 @@ public class EnemiesController : MonoBehaviour
         UpdateNextIconImage();
         RefreshEnemyList();
         _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
+        UpdateFlipEnemy(currentEnemy);
     }
 
     public void SpawnEnemy(int playerPos)
@@ -51,6 +52,7 @@ public class EnemiesController : MonoBehaviour
         UpdateNextEnemyPos(playerPos, currentEnemyIndex);
         UpdateNextIconImage();
         _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
+        UpdateFlipEnemy(currentEnemy);
     }
 
     private void UpdateNextEnemyPos(int excludedIndex, int currentEnemyIndex)
@@ -75,5 +77,19 @@ public class EnemiesController : MonoBehaviour
         _nextPosIconImage.color = _isEnemyAIsNext
             ? _enemyAPrefab.transform.GetChild(0).GetComponent<SpriteRenderer>().color
             : _enemyBPrefab.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+    }
+
+    private void UpdateFlipEnemy(GameObject currentEnemy)
+    {
+        if (currentEnemy.transform.position.x > _player.transform.position.x)
+        {
+            currentEnemy.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = false;
+            currentEnemy.transform.GetChild(0).localPosition = new Vector3(_enemyAPrefab.transform.GetChild(0).localPosition.x, currentEnemy.transform.GetChild(0).localPosition.y, currentEnemy.transform.GetChild(0).localPosition.z);
+        }
+        else
+        {
+            currentEnemy.transform.GetChild(0).GetComponent<SpriteRenderer>().flipX = true;
+            currentEnemy.transform.GetChild(0).localPosition = new Vector3(-_enemyAPrefab.transform.GetChild(0).localPosition.x, currentEnemy.transform.GetChild(0).localPosition.y, currentEnemy.transform.GetChild(0).localPosition.z);
+        }
     }
 }

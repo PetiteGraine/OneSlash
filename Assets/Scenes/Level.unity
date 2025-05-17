@@ -800,17 +800,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 231695013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &603014767 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5747861026358964775, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-  m_PrefabInstance: {fileID: 6091041393739914611}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7100f8109d43d5458ea6dd33e051d4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -2137,10 +2126,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
-    - target: {fileID: 1694324545338211030, guid: 3f2fcd80b08c8e24f9493f80e2375977, type: 3}
-      propertyPath: m_SortingOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 1747419540690798385, guid: 3f2fcd80b08c8e24f9493f80e2375977, type: 3}
       propertyPath: m_Name
       value: NextPosition
@@ -2208,53 +2193,13 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionId
-      value: da30ed5e-f6d3-438f-8d2b-da0c1704ad6c
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_ActionName
-      value: 'Player/Move2[/Keyboard/f]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
       propertyPath: m_ActionEvents.Array.data[13].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1028240446}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+    - target: {fileID: 5747861026358964775, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
+      propertyPath: _slashB
       value: 
-      objectReference: {fileID: 603014767}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: MovePlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: Player, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 5165067189654854941, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_ActionEvents.Array.data[14].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 6087783875217904417, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
-      propertyPath: m_FlipX
-      value: 0
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7400000, guid: 1fd43b795f40d58409f79c526aae1d24, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
