@@ -47,9 +47,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _animator: {fileID: 8259214847228002272}
+  _idle: {fileID: 7400000, guid: 8b4bca35bb3e78b43ad321336761a756, type: 2}
   _dash: {fileID: 7400000, guid: d0a4093ee0ec55147bac14be99a1f772, type: 2}
   _slashA: {fileID: 7400000, guid: 11822cbe6f25108459fd2ef98cc9255c, type: 2}
-  _slashB: {fileID: 7400000, guid: d580f1d1a428cb040b4d98afe8ba4e60, type: 2}
+  _slashB: {fileID: 7400000, guid: 1fd43b795f40d58409f79c526aae1d24, type: 2}
   _death: {fileID: 7400000, guid: 36684c15dec018a4ca8dcf9c646e3c15, type: 2}
 --- !u!114 &5165067189654854941
 MonoBehaviour:
@@ -279,7 +280,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: -3318188226485093758, guid: ae72133dacba6ec4eb33ecde48f50e56, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

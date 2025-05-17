@@ -41,6 +41,7 @@ public class EnemiesController : MonoBehaviour
         RefreshEnemyList();
         _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
         UpdateFlipEnemy(currentEnemy);
+        _nextPosIcon.SetActive(true);
     }
 
     public void SpawnEnemy(int playerPos)
@@ -73,10 +74,13 @@ public class EnemiesController : MonoBehaviour
 
     private void UpdateNextIconImage()
     {
+        float alpha = _nextPosIconImage.color.a;
         _isEnemyAIsNext = Random.Range(0, 2) == 1;
-        _nextPosIconImage.color = _isEnemyAIsNext
+        Color nextColor = _isEnemyAIsNext
             ? _enemyAPrefab.transform.GetChild(0).GetComponent<SpriteRenderer>().color
             : _enemyBPrefab.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+        nextColor.a = alpha;
+        _nextPosIconImage.color = nextColor;
     }
 
     private void UpdateFlipEnemy(GameObject currentEnemy)

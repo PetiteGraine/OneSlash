@@ -18,7 +18,7 @@ public class Countdown : MonoBehaviour
 
     private void Start()
     {
-        _timerText.text = "Time : " + _countdownTime.ToString("F2");
+        _timerText.text = "Time : " + _totalTime.ToString("F2");
         _gameplayController = GameObject.FindGameObjectWithTag("GameController");
     }
 
@@ -30,10 +30,17 @@ public class Countdown : MonoBehaviour
         StartCoroutine(UpdateTimer());
     }
 
+    public void StopTimer()
+    {
+        _isCountdownTimerOn = false;
+        StopCoroutine(UpdateTimer());
+    }
+
     private void EndTimer()
     {
         _isCountdownTimerOn = false;
         _gameplayController.GetComponent<GameController>().GameOver();
+        StopCoroutine(UpdateTimer());
     }
 
     private IEnumerator UpdateTimer()

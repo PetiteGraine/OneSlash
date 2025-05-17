@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _scoreText;
     private int _highscore;
     [SerializeField] private TextMeshProUGUI _highscoreText;
-    [SerializeField] private GameObject _gameOver;
     [SerializeField] private TextMeshProUGUI _pressToStartText;
 
     [Header("Game State")]
@@ -34,11 +33,9 @@ public class GameController : MonoBehaviour
     public void GameOver()
     {
         IsGameOver = true;
-        _gameOver.SetActive(true);
         _pressToStartText.gameObject.SetActive(true);
-        Time.timeScale = 0;
-
         _gameOverTime = Time.unscaledTime;
+        _gameplayController.GetComponent<Countdown>().StopTimer();
     }
 
     private void DestroyAllEnemies()
@@ -60,11 +57,9 @@ public class GameController : MonoBehaviour
             UpdateScore();
             _player.GetComponent<Player>().ResetPlayerPosition();
             _pressToStartText.gameObject.SetActive(false);
-            _gameOver.SetActive(false);
             DestroyAllEnemies();
             _gameplayController.GetComponent<Countdown>().BeginTimer();
             _gameplayController.GetComponent<EnemiesController>().FirstSpawnEnemy();
-            Time.timeScale = 1;
             IsGameOver = false;
         }
     }

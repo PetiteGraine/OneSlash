@@ -12,9 +12,11 @@ public class Player : MonoBehaviour
     private GameController _gameControllerScript;
     private EnemiesController _enemiesController;
 
+
     [Header("Animation")]
     private SpriteRenderer _spriteRenderer;
     [SerializeField] private Animator _animator;
+    [SerializeField] private AnimationClip _idle;
     [SerializeField] private AnimationClip _dash;
     [SerializeField] private AnimationClip _slashA;
     [SerializeField] private AnimationClip _slashB;
@@ -26,7 +28,6 @@ public class Player : MonoBehaviour
         _spriteOffsetX = transform.GetChild(0).localPosition.x;
         _initialPosX = PlacementsVariable.Placements.Length / 2;
         _positionX = _initialPosX;
-        Debug.Log("Player Position: " + _positionX);
         _gameControllerScript = FindFirstObjectByType<GameController>();
         _enemiesController = FindFirstObjectByType<EnemiesController>();
     }
@@ -37,14 +38,14 @@ public class Player : MonoBehaviour
         Vector3 newPos = PlacementsVariable.Placements[_positionX].transform.position;
         newPos.y += 0.625f;
         transform.position = newPos;
+        _animator.Play(_idle.name);
     }
 
     public void MovePlayer(InputAction.CallbackContext context)
     {
+        if (_gameControllerScript.IsGameOver) return;
         if (context.performed)
         {
-            if (_gameControllerScript.IsGameOver) return;
-
             _enemiesController.RefreshEnemyList();
             GameObject oldestEnemy = _enemiesController.Enemies[0];
 
@@ -54,7 +55,7 @@ public class Player : MonoBehaviour
             Vector3 newPosition = transform.position;
             newPosition.x = PlacementsVariable.Placements[_positionX].transform.position.x;
 
-            if (newPosition.x == oldestEnemy.transform.position.x)
+            if (Mathf.Approximately(newPosition.x, oldestEnemy.transform.position.x))
             {
                 _gameControllerScript.GameOver();
                 _animator.Play(_death.name);
@@ -76,7 +77,7 @@ public class Player : MonoBehaviour
         child.localPosition = localPos;
     }
 
-    public void Slash(InputAction.CallbackContext context, string validEnemyName, string slashAnimation)
+    private void Slash(InputAction.CallbackContext context, string validEnemyName, string slashAnimation)
     {
         if (!context.performed || _gameControllerScript.IsGameOver) return;
 
@@ -88,6 +89,7 @@ public class Player : MonoBehaviour
         if (!oldestEnemy.name.StartsWith(validEnemyName))
         {
             _gameControllerScript.GameOver();
+            _animator.Play(_death.name);
             return;
         }
 
@@ -97,7 +99,6 @@ public class Player : MonoBehaviour
             _gameControllerScript.IncrementScore();
             _enemiesController.SpawnEnemy(_positionX);
             _animator.Play(slashAnimation);
-
         }
         else
         {
