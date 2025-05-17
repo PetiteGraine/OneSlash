@@ -6,13 +6,24 @@ public class Player : MonoBehaviour
     [Header("Player Position")]
     private int _positionX;
     private int _initialPosX;
+    private float _spriteOffsetX;
 
     [Header("Game Controllers")]
     private GameController _gameControllerScript;
     private EnemiesController _enemiesController;
 
+    [Header("Animation")]
+    private SpriteRenderer _spriteRenderer;
+    [SerializeField] private Animator _animator;
+    [SerializeField] private AnimationClip _dash;
+    [SerializeField] private AnimationClip _slashA;
+    [SerializeField] private AnimationClip _slashB;
+    [SerializeField] private AnimationClip _death;
+
     private void Start()
     {
+        _spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        _spriteOffsetX = transform.GetChild(0).localPosition.x;
         _initialPosX = PlacementsVariable.Placements.Length / 2;
         _positionX = _initialPosX;
         Debug.Log("Player Position: " + _positionX);
@@ -30,7 +41,7 @@ public class Player : MonoBehaviour
 
     public void MovePlayer(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.started)
         {
             if (_gameControllerScript.IsGameOver) return;
 
@@ -46,11 +57,23 @@ public class Player : MonoBehaviour
             if (newPosition.x == oldestEnemy.transform.position.x)
             {
                 _gameControllerScript.GameOver();
+                _animator.Play(_death.name);
                 return;
             }
 
             transform.position = newPosition;
+            _animator.Play(_dash.name);
         }
+    }
+
+    public void UpdateFlipPlayer(GameObject currentEnemy)
+    {
+        if (currentEnemy.transform.position.x > transform.position.x) _spriteRenderer.flipX = false;
+        else _spriteRenderer.flipX = true;
+        var child = transform.GetChild(0);
+        Vector3 localPos = child.localPosition;
+        localPos.x = _spriteRenderer.flipX ? -_spriteOffsetX : _spriteOffsetX;
+        child.localPosition = localPos;
     }
 
     public void Slash(InputAction.CallbackContext context, string validEnemyName)
@@ -59,8 +82,8 @@ public class Player : MonoBehaviour
 
         _enemiesController.RefreshEnemyList();
 
-        var oldestEnemy = _enemiesController.Enemies[0];
-        var enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy);
+        GameObject oldestEnemy = _enemiesController.Enemies[0];
+        int enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy);
 
         if (!oldestEnemy.name.StartsWith(validEnemyName))
         {
@@ -77,16 +100,19 @@ public class Player : MonoBehaviour
         else
         {
             _gameControllerScript.GameOver();
+            _animator.Play(_death.name);
         }
     }
 
     public void SlashA(InputAction.CallbackContext context)
     {
         Slash(context, "EnemyA");
+        _animator.Play(_slashA.name);
     }
 
     public void SlashB(InputAction.CallbackContext context)
     {
         Slash(context, "EnemyB");
+        _animator.Play(_slashB.name);
     }
 }

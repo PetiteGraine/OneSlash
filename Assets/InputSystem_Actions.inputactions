@@ -6,9 +6,18 @@
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
-                    "name": "Move",
+                    "name": "Move1",
                     "type": "Button",
                     "id": "a47e0a2b-512b-46f2-8d9b-1df83a8b0db5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Move2",
+                    "type": "Button",
+                    "id": "da30ed5e-f6d3-438f-8d2b-da0c1704ad6c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -47,21 +56,21 @@
                     "name": "",
                     "id": "9095778d-7dbf-4aab-8554-499485bebe81",
                     "path": "<Keyboard>/d",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Move1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "caadbbdc-bd2f-4e79-9e28-47d4db220b36",
+                    "id": "7b3d7e53-13ae-43b9-8327-efba1a152c58",
                     "path": "<Keyboard>/f",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Move2",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
