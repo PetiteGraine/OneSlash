@@ -42,7 +42,7 @@ public class Countdown : MonoBehaviour
         {
             _countdownTime -= Time.deltaTime;
             _timePlaying = TimeSpan.FromSeconds(_countdownTime);
-            string timePlayingStr = "Time: " + _timePlaying.ToString(@"ss\.ff");
+            string timePlayingStr = "Time : " + _timePlaying.ToString(@"ss\.ff");
             _timerText.text = timePlayingStr;
             if (_countdownTime <= 0)
             {
