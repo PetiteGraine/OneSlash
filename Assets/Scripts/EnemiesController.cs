@@ -46,7 +46,7 @@ public class EnemiesController : MonoBehaviour
     public void SpawnEnemy(int playerPos)
     {
         Vector3 enemyPos = _nextPosIcon.transform.position;
-        enemyPos.y -= 1f;
+        enemyPos.y -= 0.75f;
         GameObject currentEnemy = Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, enemyPos, Quaternion.identity);
         int currentEnemyIndex = PlacementsVariable.GetIndexOfEnemyPostion(currentEnemy);
         UpdateNextEnemyPos(playerPos, currentEnemyIndex);
