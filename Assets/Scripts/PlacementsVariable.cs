@@ -16,7 +16,6 @@ public class PlacementsVariable : MonoBehaviour
         {
             if (Placements[i].transform.position.x == enemy.transform.position.x)
             {
-                Debug.Log("Enemy is at index: " + i);
                 return i;
             }
         }

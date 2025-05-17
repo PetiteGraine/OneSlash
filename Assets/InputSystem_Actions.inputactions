@@ -15,9 +15,27 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Attack",
+                    "name": "SlashA",
                     "type": "Button",
                     "id": "05f066b9-9f97-47f4-8c73-ac7cd05a4da5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SlashB",
+                    "type": "Button",
+                    "id": "6b9255f4-9fb4-4756-bf23-426a0212e6a2",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "StartGame",
+                    "type": "Button",
+                    "id": "c18152df-eceb-43f9-acc7-b623b20769b2",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -28,7 +46,18 @@
                 {
                     "name": "",
                     "id": "9095778d-7dbf-4aab-8554-499485bebe81",
-                    "path": "<Keyboard>/s",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "caadbbdc-bd2f-4e79-9e28-47d4db220b36",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -39,11 +68,33 @@
                 {
                     "name": "",
                     "id": "f47c06ab-e9ae-4632-967f-6594d0fb6817",
-                    "path": "<Keyboard>/d",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Attack",
+                    "action": "SlashA",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ef27817-ae7a-46be-9329-16730bc5dea8",
+                    "path": "<Keyboard>/k",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SlashB",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e86305ec-7828-42a3-985f-c40a6e19a3de",
+                    "path": "<Keyboard>/anyKey",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "StartGame",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,46 +1,87 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
     private int _score;
+
+    [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI _scoreText;
+    private int _highscore;
+    [SerializeField] private TextMeshProUGUI _highscoreText;
+    [SerializeField] private GameObject _gameOver;
+    [SerializeField] private TextMeshProUGUI _pressToStartText;
+
+    [Header("Game State")]
     public bool IsGameOver;
-    private Vector3 _initialPosition;
-    private EnemiesController _enemiesController;
+    private GameObject _gameplayController;
+    private GameObject _player;
+    private float _gameOverTime = -1f;
+    private float _restartDelay = 0.2f;
+
 
     private void Start()
     {
         _score = 0;
-        _enemiesController = FindFirstObjectByType<EnemiesController>();
-        _initialPosition = PlacementsVariable.Placements[PlacementsVariable.Placements.Length / 2].transform.position;
-        _initialPosition.y = GameObject.FindGameObjectWithTag("Player").transform.position.y;
-        IsGameOver = false;
+        _highscore = 0;
+        _gameplayController = GameObject.FindGameObjectWithTag("GameController");
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _player.GetComponent<Player>().ResetPlayerPosition();
+        IsGameOver = true;
     }
 
     public void GameOver()
     {
-        if (IsGameOver)
-        {
-            Time.timeScale = 0;
-        }
         IsGameOver = true;
-        Debug.Log("Game Over");
+        _gameOver.SetActive(true);
+        _pressToStartText.gameObject.SetActive(true);
+        Time.timeScale = 0;
+
+        _gameOverTime = Time.unscaledTime;
+    }
+
+    private void DestroyAllEnemies()
+    {
+        foreach (var enemy in GameObject.FindGameObjectsWithTag("Enemy"))
+        {
+            Destroy(enemy);
+        }
+    }
+
+    public void StartGame(InputAction.CallbackContext context)
+    {
+        if (context.performed && IsGameOver)
+        {
+            if (Time.unscaledTime - _gameOverTime < _restartDelay)
+                return;
+
+            _score = 0;
+            UpdateScore();
+            _player.GetComponent<Player>().ResetPlayerPosition();
+            _pressToStartText.gameObject.SetActive(false);
+            _gameOver.SetActive(false);
+            DestroyAllEnemies();
+            _gameplayController.GetComponent<Countdown>().BeginTimer();
+            _gameplayController.GetComponent<EnemiesController>().FirstSpawnEnemy();
+            Time.timeScale = 1;
+            IsGameOver = false;
+        }
+    }
+
+    public void IncrementScore()
+    {
+        _score++;
+        UpdateScore();
     }
 
     public void UpdateScore()
     {
-        _score++;
         _scoreText.text = "Score : " + _score.ToString();
-    }
-
-    public void RestartGame()
-    {
-        Time.timeScale = 1;
-        IsGameOver = false;
-        _scoreText.text = "Score : 0";
-        _enemiesController.Enemies = null;
-        Player player = FindFirstObjectByType<Player>();
-        player.transform.position = _initialPosition;
+        if (_score > _highscore)
+        {
+            _highscore = _score;
+            _highscoreText.text = "Highscore : " + _highscore.ToString();
+        }
     }
 }

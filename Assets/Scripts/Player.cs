@@ -1,41 +1,51 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class Player : MonoBehaviour
 {
+    [Header("Player Position")]
     private int _positionX;
-    private GameController _gameController;
+    private int _initialPosX;
+
+    [Header("Game Controllers")]
+    private GameController _gameControllerScript;
     private EnemiesController _enemiesController;
 
     private void Start()
     {
-        _positionX = 3;
-        _gameController = FindFirstObjectByType<GameController>();
+        _initialPosX = PlacementsVariable.Placements.Length / 2;
+        _positionX = _initialPosX;
+        Debug.Log("Player Position: " + _positionX);
+        _gameControllerScript = FindFirstObjectByType<GameController>();
         _enemiesController = FindFirstObjectByType<EnemiesController>();
     }
 
-    public void MovePlayer(InputAction.CallbackContext context) {
+    public void ResetPlayerPosition()
+    {
+        _positionX = _initialPosX;
+        Vector3 newPos = PlacementsVariable.Placements[_positionX].transform.position;
+        newPos.y += 0.625f;
+        transform.position = newPos;
+    }
+
+    public void MovePlayer(InputAction.CallbackContext context)
+    {
         if (context.performed)
         {
-            if (_gameController.IsGameOver) return;
-            
+            if (_gameControllerScript.IsGameOver) return;
+
             _enemiesController.RefreshEnemyList();
             GameObject oldestEnemy = _enemiesController.Enemies[0];
 
-                if (oldestEnemy.transform.position.x > transform.position.x) {
-                    _positionX++;
-                }
-                else {
-                    _positionX--;
-                }
-            
+            if (oldestEnemy.transform.position.x > transform.position.x) _positionX++;
+            else _positionX--;
+
             Vector3 newPosition = transform.position;
             newPosition.x = PlacementsVariable.Placements[_positionX].transform.position.x;
-            
 
-            if (newPosition.x == oldestEnemy.transform.position.x) {
-                _gameController.GameOver();
+            if (newPosition.x == oldestEnemy.transform.position.x)
+            {
+                _gameControllerScript.GameOver();
                 return;
             }
 
@@ -43,24 +53,40 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void SlashEnemy(InputAction.CallbackContext context) {
-        if (context.performed)
+    public void Slash(InputAction.CallbackContext context, string validEnemyName)
+    {
+        if (!context.performed || _gameControllerScript.IsGameOver) return;
+
+        _enemiesController.RefreshEnemyList();
+
+        var oldestEnemy = _enemiesController.Enemies[0];
+        var enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy);
+
+        if (!oldestEnemy.name.StartsWith(validEnemyName))
         {
-            if (_gameController.IsGameOver) return;
-            
-            _enemiesController.RefreshEnemyList();
-            var oldestEnemy = _enemiesController.Enemies[0];
-            var enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy);
-            if (_positionX - 1 == enemyIndexPos || enemyIndexPos == _positionX + 1)
-            {
-                Destroy(oldestEnemy);
-                _gameController.UpdateScore();
-                _enemiesController.SpawnEnemy(_positionX);
-            }
-            else
-            {
-                _gameController.GameOver();
-            }
+            _gameControllerScript.GameOver();
+            return;
         }
+
+        if (Mathf.Abs(enemyIndexPos - _positionX) == 1)
+        {
+            Destroy(oldestEnemy);
+            _gameControllerScript.IncrementScore();
+            _enemiesController.SpawnEnemy(_positionX);
+        }
+        else
+        {
+            _gameControllerScript.GameOver();
+        }
+    }
+
+    public void SlashA(InputAction.CallbackContext context)
+    {
+        Slash(context, "EnemyA");
+    }
+
+    public void SlashB(InputAction.CallbackContext context)
+    {
+        Slash(context, "EnemyB");
     }
 }

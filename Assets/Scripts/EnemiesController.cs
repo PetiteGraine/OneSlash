@@ -1,22 +1,53 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemiesController : MonoBehaviour
 {
-    public GameObject[] Enemies;
-    [SerializeField] private GameObject _enemyPrefab;
+    [Header("Enemy Prefabs")]
+    [SerializeField] private GameObject _enemyAPrefab;
+    [SerializeField] private GameObject _enemyBPrefab;
+
+    [Header("UI Elements")]
     [SerializeField] private GameObject _nextPosIcon;
+    [SerializeField] private Image _nextPosIconImage;
+
+    [Header("Enemy Management")]
+    public GameObject[] Enemies;
+
+    private bool _isEnemyAIsNext;
+    private int _centerIndex;
 
     private void Start()
     {
-        int excludedIndex = PlacementsVariable.Placements.Length / 2;
-        bool isEnemySpawnRight = Random.Range(0, 2) == 1;
-        Vector3 firstSpawnPos = PlacementsVariable.Placements[isEnemySpawnRight ? excludedIndex + 2 : excludedIndex - 2].transform.position;
-        firstSpawnPos.y += 0.625f;
-        Instantiate(_enemyPrefab, firstSpawnPos, Quaternion.identity);
-        _nextPosIcon.transform.position = new Vector3(PlacementsVariable.Placements[isEnemySpawnRight ? excludedIndex - 2 : excludedIndex + 2].transform.position.x, _nextPosIcon.transform.position.y, 0);
+        _centerIndex = PlacementsVariable.Placements.Length / 2;
+        FirstSpawnEnemy();
     }
 
-    private void UpdateNextPosIcon(int excludedIndex, int currentEnemyIndex)
+    public void RefreshEnemyList()
+    {
+        Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    }
+
+    public void FirstSpawnEnemy()
+    {
+        bool isEnemySpawnRight = Random.Range(0, 2) == 1;
+        _isEnemyAIsNext = Random.Range(0, 2) == 1;
+        Vector3 firstSpawnPos = PlacementsVariable.Placements[isEnemySpawnRight ? _centerIndex + 2 : _centerIndex - 2].transform.position;
+        firstSpawnPos.y += 0.625f;
+        Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, firstSpawnPos, Quaternion.identity);
+        _nextPosIcon.transform.position = new Vector3(PlacementsVariable.Placements[isEnemySpawnRight ? _centerIndex - 2 : _centerIndex + 2].transform.position.x, _nextPosIcon.transform.position.y, 0);
+        UpdateNextIconImage();
+    }
+
+    public void SpawnEnemy(int playerPos)
+    {
+        GameObject currentEnemy = Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, _nextPosIcon.transform.position, Quaternion.identity);
+        int currentEnemyIndex = PlacementsVariable.GetIndexOfEnemyPostion(currentEnemy);
+        UpdateNextEnemyPos(playerPos, currentEnemyIndex);
+        UpdateNextIconImage();
+    }
+
+    private void UpdateNextEnemyPos(int excludedIndex, int currentEnemyIndex)
     {
         int[] availableIndices = new int[PlacementsVariable.Placements.Length - 1];
         for (int i = 0, j = 0; i < PlacementsVariable.Placements.Length - 1; i++)
@@ -32,14 +63,11 @@ public class EnemiesController : MonoBehaviour
         _nextPosIcon.transform.position = new Vector3(nextSpawnPosition.x, _nextPosIcon.transform.position.y, 0);
     }
 
-    public void SpawnEnemy(int playerPos)
+    private void UpdateNextIconImage()
     {
-        GameObject currentEnemy = Instantiate(_enemyPrefab, _nextPosIcon.transform.position, Quaternion.identity);
-        int currentEnemyIndex = PlacementsVariable.GetIndexOfEnemyPostion(currentEnemy);
-        UpdateNextPosIcon(playerPos, currentEnemyIndex);
-    }
-
-    public void RefreshEnemyList() {
-        Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        _isEnemyAIsNext = Random.Range(0, 2) == 1;
+        _nextPosIconImage.color = _isEnemyAIsNext
+            ? _enemyAPrefab.GetComponent<SpriteRenderer>().color
+            : _enemyBPrefab.GetComponent<SpriteRenderer>().color;
     }
 }

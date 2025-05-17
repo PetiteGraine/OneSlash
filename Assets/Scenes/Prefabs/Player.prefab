@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 0.39215687, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -186,7 +186,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 5747861026358964775}
         m_TargetAssemblyTypeName: Player, Assembly-CSharp
-        m_MethodName: SlashEnemy
+        m_MethodName: SlashA
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -198,6 +198,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 05f066b9-9f97-47f4-8c73-ac7cd05a4da5
     m_ActionName: 'Player/Attack[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5747861026358964775}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: SlashB
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6b9255f4-9fb4-4756-bf23-426a0212e6a2
+    m_ActionName: 'Player/SlashB[/Keyboard/k]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: GameController, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: c18152df-eceb-43f9-acc7-b623b20769b2
+    m_ActionName: 'Player/StartGame[/Keyboard/anyKey]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
