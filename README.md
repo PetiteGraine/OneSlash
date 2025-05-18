@@ -8,8 +8,7 @@ You have three actions:
 - Press **D** or **F** to **move toward the monster**. 
 - Press **J** to slash **purple monsters**. 
 - Press **K** to slash **orange monsters**.
-  
-Be quick, be precise — one mistake and it's game over.
 
-If you **slash into empty space**, you die.
-If you **move onto a monster**, you die.
+If you **slash into empty space**, you die. If you **move onto a monster**, you die.
+
+Be quick, be precise — one mistake and it's game over.
