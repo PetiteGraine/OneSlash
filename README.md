@@ -5,8 +5,10 @@
 You kill monsters in a single slash. Your goal is to score as high as possible in 60 seconds.
 
 You have three actions: 
-- Move — Press D or F to change position. 
-- Press J to slash purple monsters. 
-- Press K to slash orange monsters.
+- Press **D** or **F** to **move toward the monster**. 
+- Press **J** to slash **purple monsters**. 
+- Press **K** to slash **orange monsters**.
   
 Be quick, be precise — one mistake and it's game over.
+If you **slash into empty space**, you die.
+If you **move onto a monster**, you die.
