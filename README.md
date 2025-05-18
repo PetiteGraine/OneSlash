@@ -10,5 +10,6 @@ You have three actions:
 - Press **K** to slash **orange monsters**.
   
 Be quick, be precise — one mistake and it's game over.
+
 If you **slash into empty space**, you die.
 If you **move onto a monster**, you die.
