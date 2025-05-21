@@ -1,5 +1,9 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +15,8 @@ public class Player : MonoBehaviour
     [Header("Game Controllers")]
     private GameController _gameControllerScript;
     private EnemiesController _enemiesController;
+    [SerializeField] private Button _buttonD;
+    [SerializeField] private Button _buttonF;
 
 
     [Header("Animation")]
@@ -46,6 +52,7 @@ public class Player : MonoBehaviour
         if (_gameControllerScript.IsGameOver) return;
         if (context.performed)
         {
+            Debug.Log("MovePlayer: " + context.action.name);
             _enemiesController.RefreshEnemyList();
             GameObject oldestEnemy = _enemiesController.Enemies[0];
 
@@ -54,6 +61,13 @@ public class Player : MonoBehaviour
 
             Vector3 newPosition = transform.position;
             newPosition.x = PlacementsVariable.Placements[_positionX].transform.position.x;
+
+            if (context.action.name == "Move1")
+                PressButton(_buttonD);
+            else
+            {
+                PressButton(_buttonF);
+            }
 
             if (Mathf.Approximately(newPosition.x, oldestEnemy.transform.position.x))
             {
@@ -64,6 +78,14 @@ public class Player : MonoBehaviour
 
             transform.position = newPosition;
             _animator.Play(_dash.name);
+        }
+        
+        else if (context.canceled)
+        {
+            if (context.action.name == "Move1")
+                ReleaseButton(_buttonD);
+            else
+                ReleaseButton(_buttonF);
         }
     }
 
@@ -115,5 +137,16 @@ public class Player : MonoBehaviour
     public void SlashB(InputAction.CallbackContext context)
     {
         Slash(context, "EnemyB", _slashB.name);
+    }
+
+    private void PressButton(Button button)
+    {
+        ExecuteEvents.Execute(button.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerDownHandler);
+    }
+
+    private void ReleaseButton(Button button)
+    {
+        ExecuteEvents.Execute(button.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
+        button.onClick.Invoke();
     }
 }
