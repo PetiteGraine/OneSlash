@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -17,6 +15,8 @@ public class Player : MonoBehaviour
     private EnemiesController _enemiesController;
     [SerializeField] private Button _buttonD;
     [SerializeField] private Button _buttonF;
+    [SerializeField] private Button _buttonJ;
+    [SerializeField] private Button _buttonK;
 
 
     [Header("Animation")]
@@ -49,10 +49,17 @@ public class Player : MonoBehaviour
 
     public void MovePlayer(InputAction.CallbackContext context)
     {
-        if (_gameControllerScript.IsGameOver) return;
         if (context.performed)
         {
-            Debug.Log("MovePlayer: " + context.action.name);
+            if (context.action.name == "Move1")
+                PressButton(_buttonD);
+            else
+            {
+                PressButton(_buttonF);
+            }
+
+            if (_gameControllerScript.IsGameOver) return;
+
             _enemiesController.RefreshEnemyList();
             GameObject oldestEnemy = _enemiesController.Enemies[0];
 
@@ -62,12 +69,7 @@ public class Player : MonoBehaviour
             Vector3 newPosition = transform.position;
             newPosition.x = PlacementsVariable.Placements[_positionX].transform.position.x;
 
-            if (context.action.name == "Move1")
-                PressButton(_buttonD);
-            else
-            {
-                PressButton(_buttonF);
-            }
+            
 
             if (Mathf.Approximately(newPosition.x, oldestEnemy.transform.position.x))
             {
@@ -132,11 +134,27 @@ public class Player : MonoBehaviour
     public void SlashA(InputAction.CallbackContext context)
     {
         Slash(context, "EnemyA", _slashA.name);
+        if (context.performed)
+        {
+            PressButton(_buttonJ);
+        }
+        else if (context.canceled)
+        {
+            ReleaseButton(_buttonJ);
+        }
     }
 
     public void SlashB(InputAction.CallbackContext context)
     {
         Slash(context, "EnemyB", _slashB.name);
+        if (context.performed)
+        {
+            PressButton(_buttonK);
+        }
+        else if (context.canceled)
+        {
+            ReleaseButton(_buttonK);
+        }
     }
 
     private void PressButton(Button button)
@@ -147,6 +165,5 @@ public class Player : MonoBehaviour
     private void ReleaseButton(Button button)
     {
         ExecuteEvents.Execute(button.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.pointerUpHandler);
-        button.onClick.Invoke();
     }
 }
