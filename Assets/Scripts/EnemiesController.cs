@@ -7,13 +7,16 @@ public class EnemiesController : MonoBehaviour
     [SerializeField] private GameObject _enemyAPrefab;
     [SerializeField] private GameObject _enemyBPrefab;
 
+
     [Header("UI Elements")]
     [SerializeField] private GameObject _nextPosIcon;
     [SerializeField] private Image _nextPosIconImage;
+    [SerializeField] private Color _nextPosColorA;
+    [SerializeField] private Color _nextPosColorB;
+
 
     [Header("Enemy Management")]
     public GameObject[] Enemies;
-
     private bool _isEnemyAIsNext;
     private int _centerIndex;
     private GameObject _player;
@@ -47,7 +50,7 @@ public class EnemiesController : MonoBehaviour
     public void SpawnEnemy(int playerPos)
     {
         Vector3 enemyPos = _nextPosIcon.transform.position;
-        enemyPos.y -= 0.75f;
+        enemyPos.y -= _nextPosIcon.transform.position.y - 0.5f;
         GameObject currentEnemy = Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, enemyPos, Quaternion.identity);
         int currentEnemyIndex = PlacementsVariable.GetIndexOfEnemyPostion(currentEnemy);
         UpdateNextEnemyPos(playerPos, currentEnemyIndex);
@@ -77,8 +80,8 @@ public class EnemiesController : MonoBehaviour
         float alpha = _nextPosIconImage.color.a;
         _isEnemyAIsNext = Random.Range(0, 2) == 1;
         Color nextColor = _isEnemyAIsNext
-            ? _enemyAPrefab.transform.GetChild(0).GetComponent<SpriteRenderer>().color
-            : _enemyBPrefab.transform.GetChild(0).GetComponent<SpriteRenderer>().color;
+            ? _nextPosColorA
+            : _nextPosColorB;
         nextColor.a = alpha;
         _nextPosIconImage.color = nextColor;
     }

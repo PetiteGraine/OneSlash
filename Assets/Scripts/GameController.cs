@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _scoreNearPlayerText;
     private int _highscore;
     [SerializeField] private TextMeshProUGUI _highscoreText;
     [SerializeField] private TextMeshProUGUI _pressToStartText;
@@ -64,9 +65,9 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void IncrementScore()
+    public void IncreaseScore(int score)
     {
-        _score++;
+        _score += score;
         UpdateScore();
     }
 
@@ -78,5 +79,10 @@ public class GameController : MonoBehaviour
             _highscore = _score;
             _highscoreText.text = "Highscore : " + _highscore.ToString();
         }
+    }
+    
+    public void UpdateScoreNearPlayer()
+    {
+        _scoreNearPlayerText.text = _score.ToString();
     }
 }
