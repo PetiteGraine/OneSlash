@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
 
     [Header("UI Elements")]
     [SerializeField] private GameObject _canvasScoreNearPlayerText;
-    private float __canvasScoreNearPlayerTextPosOffestX = 1.5f;
+    private float __canvasScoreNearPlayerTextPosOffestX = 2f;
     private Coroutine _scoreTextCoroutine;
     [SerializeField] private Button _buttonD;
     [SerializeField] private Button _buttonF;
@@ -102,6 +102,7 @@ public class Player : MonoBehaviour
         var child = transform.GetChild(0);
         Vector3 localPos = child.localPosition;
         localPos.x = _spriteRenderer.flipX ? -Mathf.Abs(_spriteRenderer.transform.localPosition.x) : Mathf.Abs(_spriteRenderer.transform.localPosition.x);
+        _spriteRenderer.transform.localPosition = localPos;
     }
 
     private void Slash(InputAction.CallbackContext context, string validEnemyName, string slashAnimation)
@@ -173,6 +174,9 @@ public class Player : MonoBehaviour
     {
         _gameControllerScript.UpdateScoreNearPlayer();
         UpdateScoreNearPlayerPos();
+        var anim = _canvasScoreNearPlayerText.transform.GetChild(0).GetComponent<Animation>();
+        anim.Stop();
+        anim.Play();
         _canvasScoreNearPlayerText.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         _canvasScoreNearPlayerText.SetActive(false);

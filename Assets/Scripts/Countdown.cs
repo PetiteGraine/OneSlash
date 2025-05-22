@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Countdown : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class Countdown : MonoBehaviour
     private bool _isCountdownTimerOn = false;
 
     [Header("UI Elements")]
+    [SerializeField] private Slider _timerSlider;
     private float _countdownTime;
     [SerializeField] private TextMeshProUGUI _timerText;
 
@@ -18,14 +20,14 @@ public class Countdown : MonoBehaviour
 
     private void Start()
     {
-        _timerText.text = "Time : " + _totalTime.ToString("F2");
+        _timerText.text = _totalTime.ToString("F2");
         _gameplayController = GameObject.FindGameObjectWithTag("GameController");
     }
 
     public void BeginTimer()
     {
         _countdownTime = _totalTime;
-        _timerText.text = "Time : " + _countdownTime.ToString("F2");
+        _timerText.text = _countdownTime.ToString("F2");
         _isCountdownTimerOn = true;
         StartCoroutine(UpdateTimer());
     }
@@ -49,8 +51,9 @@ public class Countdown : MonoBehaviour
         {
             _countdownTime -= Time.deltaTime;
             _timePlaying = TimeSpan.FromSeconds(_countdownTime);
-            string timePlayingStr = "Time : " + _timePlaying.ToString(@"ss\.ff");
+            string timePlayingStr = _timePlaying.ToString(@"ss\.ff");
             _timerText.text = timePlayingStr;
+            _timerSlider.value = _countdownTime;
             if (_countdownTime <= 0)
             {
                 EndTimer();
