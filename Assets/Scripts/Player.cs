@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
 
     [Header("Animation")]
     private SpriteRenderer _spriteRenderer;
+    [SerializeField] private float _deathAnimationDelay = 0.165f;
     [SerializeField] private Animator _animator;
     [SerializeField] private AnimationClip _idle;
     [SerializeField] private AnimationClip _dash;
@@ -120,6 +121,7 @@ public class Player : MonoBehaviour
         _enemiesController.RefreshEnemyList();
 
         GameObject oldestEnemy = _enemiesController.Enemies[0];
+        Enemy enemyScript = oldestEnemy.GetComponent<Enemy>();
         int enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy);
 
         if (!oldestEnemy.name.StartsWith(validEnemyName))
@@ -132,7 +134,7 @@ public class Player : MonoBehaviour
         {
             _gameControllerScript.IncreaseScore(5);
             StartCoroutineShowScoreText();
-            Destroy(oldestEnemy);
+            enemyScript.DeathAnimation();
             _animator.Play(slashAnimation);
 
             GameObject newEnemy = _enemiesController.SpawnEnemy(_positionX);
@@ -177,8 +179,18 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
+        GameObject oldestEnemy = _enemiesController.Enemies[0];
+        Enemy enemyScript = oldestEnemy.GetComponent<Enemy>();
         _gameControllerScript.GameOver();
-        _animator.Play(_death.name);
+
+        enemyScript.AttackAnimation();
+        StartCoroutine(PlayDeathAnimationWithDelay());
+
+        System.Collections.IEnumerator PlayDeathAnimationWithDelay()
+        {
+            yield return new WaitForSeconds(_deathAnimationDelay);
+            _animator.Play(_death.name);
+        }
     }
 
     private void UpdateScoreNearPlayerPos()

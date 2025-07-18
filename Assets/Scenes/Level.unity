@@ -9501,18 +9501,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2231971550714690100, guid: cab6d7df51a9e6e4eb16e26dbf28af21, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2231971550714690100, guid: cab6d7df51a9e6e4eb16e26dbf28af21, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2231971550714690100, guid: cab6d7df51a9e6e4eb16e26dbf28af21, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2231971550714690100, guid: cab6d7df51a9e6e4eb16e26dbf28af21, type: 3}
       propertyPath: m_LocalPosition.x
       value: 6.5
       objectReference: {fileID: 0}
@@ -10531,6 +10519,10 @@ PrefabInstance:
       propertyPath: _buttonK
       value: 
       objectReference: {fileID: 445950291}
+    - target: {fileID: 5747861026358964775, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
+      propertyPath: _deathAnimationDelay
+      value: 0.165
+      objectReference: {fileID: 0}
     - target: {fileID: 5747861026358964775, guid: 56579972cc36d72499b73d2a75b3e4b1, type: 3}
       propertyPath: _canvasScoreNearPlayerText
       value: 
