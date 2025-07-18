@@ -18,10 +18,12 @@ public class GameController : MonoBehaviour
 
     [Header("Game State")]
     public bool IsGameOver;
+    private bool _isGameStarted;
     private GameObject _gameplayController;
     private GameObject _player;
+    private Player _playerscript;
     private float _gameOverTime = -1f;
-    private float _restartDelay = 0.2f;
+    private float _restartDelay = 0.01f;
 
 
     private void Start()
@@ -29,14 +31,17 @@ public class GameController : MonoBehaviour
         _score = 0;
         _highscore = 0;
         _gameplayController = GameObject.FindGameObjectWithTag("GameController");
+        _playerscript = FindFirstObjectByType<Player>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _player.GetComponent<Player>().ResetPlayerPosition();
         IsGameOver = true;
+        _isGameStarted = false;
     }
 
     public void GameOver()
     {
         IsGameOver = true;
+        _isGameStarted = false;
         _pressToStartText.gameObject.SetActive(true);
         _gameOverTime = Time.unscaledTime;
         _gameplayController.GetComponent<Countdown>().StopTimer();
@@ -52,9 +57,11 @@ public class GameController : MonoBehaviour
         }
     }
 
-    public void StartGame(InputAction.CallbackContext context)
+    public void ProcessGameInput(InputAction.CallbackContext context)
     {
-        if (context.performed && IsGameOver)
+        if (!context.performed) return;
+
+        if (IsGameOver)
         {
             if (Time.unscaledTime - _gameOverTime < _restartDelay)
                 return;
@@ -64,11 +71,22 @@ public class GameController : MonoBehaviour
             _player.GetComponent<Player>().ResetPlayerPosition();
             _pressToStartText.gameObject.SetActive(false);
             DestroyAllEnemies();
-            _gameplayController.GetComponent<Countdown>().BeginTimer();
-            _gameplayController.GetComponent<EnemiesController>().FirstSpawnEnemy();
+            GameObject newEnemy = _gameplayController.GetComponent<EnemiesController>().FirstSpawnEnemy();
+            _gameplayController.GetComponent<Countdown>().ResetTimer();
+            _playerscript.InitArrowDirection(newEnemy);
             IsGameOver = false;
+            _isGameStarted = false;
+            return;
+        }
+
+        if (!IsGameOver && !_isGameStarted)
+        {
+            _isGameStarted = true;
+            _gameplayController.GetComponent<Countdown>().BeginTimer();
+            return;
         }
     }
+
 
     public void IncreaseScore(int score)
     {

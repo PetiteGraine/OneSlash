@@ -32,7 +32,7 @@ public class EnemiesController : MonoBehaviour
         Enemies = GameObject.FindGameObjectsWithTag("Enemy");
     }
 
-    public void FirstSpawnEnemy()
+    public GameObject FirstSpawnEnemy()
     {
         bool isEnemySpawnRight = Random.Range(0, 2) == 1;
         _isEnemyAIsNext = Random.Range(0, 2) == 1;
@@ -45,6 +45,7 @@ public class EnemiesController : MonoBehaviour
         _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
         UpdateFlipEnemy(currentEnemy);
         _nextPosIcon.SetActive(true);
+        return currentEnemy;
     }
 
     public GameObject SpawnEnemy(int playerPos)

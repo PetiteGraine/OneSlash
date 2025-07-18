@@ -24,10 +24,15 @@ public class Countdown : MonoBehaviour
         _gameplayController = GameObject.FindGameObjectWithTag("GameController");
     }
 
-    public void BeginTimer()
+    public void ResetTimer()
     {
         _countdownTime = _totalTime;
         _timerText.text = _countdownTime.ToString("F2");
+        _timerSlider.value = _countdownTime;
+    }
+
+    public void BeginTimer()
+    {
         _isCountdownTimerOn = true;
         StartCoroutine(UpdateTimer());
     }

@@ -134,16 +134,19 @@ public class Player : MonoBehaviour
             StartCoroutineShowScoreText();
             Destroy(oldestEnemy);
             _animator.Play(slashAnimation);
-            GameObject newEnemy = _enemiesController.SpawnEnemy(_positionX);
 
-            enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(newEnemy);
-            Debug.Log($"Enemy {newEnemy.name} spawned at position {enemyIndexPos}");
+            GameObject newEnemy = _enemiesController.SpawnEnemy(_positionX);
             _changeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
         }
         else
         {
             Die();
         }
+    }
+
+    public void InitArrowDirection(GameObject newEnemy)
+    {
+        _changeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
     }
 
     public void SlashA(InputAction.CallbackContext context)
