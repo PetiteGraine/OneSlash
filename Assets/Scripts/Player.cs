@@ -13,6 +13,7 @@ public class Player : MonoBehaviour
     [Header("Game Controllers")]
     private GameController _gameControllerScript;
     private EnemiesController _enemiesController;
+    private ChangeArrowsDirection _changeArrowsDirectionScript;
 
     [Header("UI Elements")]
     [SerializeField] private GameObject _canvasScoreNearPlayerText;
@@ -40,6 +41,7 @@ public class Player : MonoBehaviour
         _positionX = _initialPosX;
         _gameControllerScript = FindFirstObjectByType<GameController>();
         _enemiesController = FindFirstObjectByType<EnemiesController>();
+        _changeArrowsDirectionScript = FindFirstObjectByType<ChangeArrowsDirection>();
     }
 
     public void ResetPlayerPosition()
@@ -67,16 +69,22 @@ public class Player : MonoBehaviour
             _enemiesController.RefreshEnemyList();
             GameObject oldestEnemy = _enemiesController.Enemies[0];
 
-            if (oldestEnemy.transform.position.x > transform.position.x) _positionX++;
-            else _positionX--;
+            if (oldestEnemy.transform.position.x > transform.position.x)
+            {
+                _positionX++;
+            }
+            else
+            {
+                _positionX--;
+            }
+            ;
 
             Vector3 newPosition = transform.position;
             newPosition.x = PlacementsVariable.Placements[_positionX].transform.position.x;
 
             if (Mathf.Approximately(newPosition.x, oldestEnemy.transform.position.x))
             {
-                _gameControllerScript.GameOver();
-                _animator.Play(_death.name);
+                Die();
                 return;
             }
 
@@ -116,8 +124,7 @@ public class Player : MonoBehaviour
 
         if (!oldestEnemy.name.StartsWith(validEnemyName))
         {
-            _gameControllerScript.GameOver();
-            _animator.Play(_death.name);
+            Die();
             return;
         }
 
@@ -126,13 +133,16 @@ public class Player : MonoBehaviour
             _gameControllerScript.IncreaseScore(5);
             StartCoroutineShowScoreText();
             Destroy(oldestEnemy);
-            _enemiesController.SpawnEnemy(_positionX);
             _animator.Play(slashAnimation);
+            GameObject newEnemy = _enemiesController.SpawnEnemy(_positionX);
+
+            enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(newEnemy);
+            Debug.Log($"Enemy {newEnemy.name} spawned at position {enemyIndexPos}");
+            _changeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
         }
         else
         {
-            _gameControllerScript.GameOver();
-            _animator.Play(_death.name);
+            Die();
         }
     }
 
@@ -160,6 +170,12 @@ public class Player : MonoBehaviour
         {
             ReleaseButton(_buttonK);
         }
+    }
+
+    private void Die()
+    {
+        _gameControllerScript.GameOver();
+        _animator.Play(_death.name);
     }
 
     private void UpdateScoreNearPlayerPos()

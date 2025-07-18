@@ -47,7 +47,7 @@ public class EnemiesController : MonoBehaviour
         _nextPosIcon.SetActive(true);
     }
 
-    public void SpawnEnemy(int playerPos)
+    public GameObject SpawnEnemy(int playerPos)
     {
         Vector3 enemyPos = _nextPosIcon.transform.position;
         enemyPos.y -= _nextPosIcon.transform.position.y - 0.5f;
@@ -57,6 +57,7 @@ public class EnemiesController : MonoBehaviour
         UpdateNextIconImage();
         _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
         UpdateFlipEnemy(currentEnemy);
+        return currentEnemy;
     }
 
     private void UpdateNextEnemyPos(int excludedIndex, int currentEnemyIndex)
