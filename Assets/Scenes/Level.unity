@@ -1088,8 +1088,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 244296273}
   - {fileID: 979438178}
+  - {fileID: 244296273}
   - {fileID: 959581180}
   - {fileID: 1349524556}
   m_Father: {fileID: 1323747718}
@@ -1206,10 +1206,10 @@ RectTransform:
   - {fileID: 1536523307}
   m_Father: {fileID: 235896339}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1200, y: 450}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -300}
+  m_SizeDelta: {x: 1200, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &244296275
 CanvasRenderer:
@@ -1239,7 +1239,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 600, y: 225}
+  m_CellSize: {x: 600, y: 300}
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
