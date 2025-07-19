@@ -87,17 +87,6 @@
                 },
                 {
                     "name": "",
-                    "id": "c9cd4250-20b8-49e4-9538-be849bdeb9ce",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SlashA",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8ef27817-ae7a-46be-9329-16730bc5dea8",
                     "path": "<Keyboard>/k",
                     "interactions": "",
@@ -133,6 +122,28 @@
                     "name": "",
                     "id": "d00e1be6-f649-48cd-94fa-68cebefc7885",
                     "path": "<Touchscreen>/Press",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ProcessGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "266a02c6-c9e0-4780-8c80-5471fec79198",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ProcessGame",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ff3a18c9-eea3-49a3-8a43-dd01050287d3",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
