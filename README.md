@@ -14,9 +14,11 @@ If you **slash into empty space**, you die. If you **move onto a monster**, you 
 Be quick, be precise — one mistake and it's game over.
 
 ## Credits
+Special thanks to my friend [William](https://wrdx.carrd.co/), he made the icons for the ui.
+
 This game uses assets from the Unity Asset Store:
-- Characters models by [Clembod](https://assetstore.unity.com/publishers/50715).
+- Character models by [Clembod](https://assetstore.unity.com/publishers/50715).
 - Tileset and Props by [Cainos](https://assetstore.unity.com/publishers/40001).
 - UI by [Gentleland](https://assetstore.unity.com/publishers/35710).
 
-These creators were not involved in the development of this game.
+These other creators were not involved in the development of this game.
