@@ -7,13 +7,11 @@ public class EnemiesController : MonoBehaviour
     [SerializeField] private GameObject _enemyAPrefab;
     [SerializeField] private GameObject _enemyBPrefab;
 
-
     [Header("UI Elements")]
     [SerializeField] private GameObject _nextPosIcon;
     [SerializeField] private Image _nextPosIconImage;
     [SerializeField] private Color _nextPosColorA;
     [SerializeField] private Color _nextPosColorB;
-
 
     [Header("Enemy Management")]
     public GameObject[] Enemies;
@@ -56,8 +54,8 @@ public class EnemiesController : MonoBehaviour
         int currentEnemyIndex = PlacementsVariable.GetIndexOfEnemyPostion(currentEnemy);
         UpdateNextEnemyPos(playerPos, currentEnemyIndex);
         UpdateNextIconImage();
-        _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
         UpdateFlipEnemy(currentEnemy);
+        _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
         return currentEnemy;
     }
 

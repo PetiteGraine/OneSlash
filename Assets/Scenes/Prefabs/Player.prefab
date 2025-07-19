@@ -46,6 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7100f8109d43d5458ea6dd33e051d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _canvasScoreNearPlayerText: {fileID: 0}
+  _buttonD: {fileID: 0}
+  _buttonF: {fileID: 0}
+  _buttonJ: {fileID: 0}
+  _buttonK: {fileID: 0}
+  _deathAnimationDelay: 0.165
   _animator: {fileID: 8259214847228002272}
   _idle: {fileID: 7400000, guid: 8b4bca35bb3e78b43ad321336761a756, type: 2}
   _dash: {fileID: 7400000, guid: d0a4093ee0ec55147bac14be99a1f772, type: 2}
@@ -169,7 +175,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: GameController, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: ProcessGameInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
