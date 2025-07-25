@@ -18,7 +18,7 @@ Special thanks to my friend [William](https://wrdx.carrd.co/), he made the icons
 
 This game uses assets from the Unity Asset Store:
 - Character models by [Clembod](https://assetstore.unity.com/publishers/50715).
-- Tileset and Props by [Cainos](https://assetstore.unity.com/publishers/40001).
-- UI by [Gentleland](https://assetstore.unity.com/publishers/35710).
+- [Tileset and Props](https://assetstore.unity.com/packages/2d/environments/pixel-art-platformer-village-props-166114) by [Cainos](https://assetstore.unity.com/publishers/40001).
+- [UI](https://assetstore.unity.com/packages/2d/gui/icons/steampunkui-238976) by [Gentleland](https://assetstore.unity.com/publishers/35710).
 
 These other creators were not involved in the development of this game.
