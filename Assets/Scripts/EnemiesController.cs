@@ -48,6 +48,7 @@ public class EnemiesController : MonoBehaviour
 
     public GameObject SpawnEnemy(int playerPos)
     {
+        PlacementsVariable.changeColor(_isEnemyAIsNext);
         Vector3 enemyPos = _nextPosIcon.transform.position;
         enemyPos.y -= _nextPosIcon.transform.position.y - 0.5f;
         GameObject currentEnemy = Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, enemyPos, Quaternion.identity);

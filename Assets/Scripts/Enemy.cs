@@ -17,6 +17,6 @@ public class Enemy : MonoBehaviour
     {
         gameObject.tag = "Untagged";
         _animator.Play(_death.name);
-        Destroy(gameObject, _death.length/2f);
+        Destroy(gameObject, _death.length / 2f);
     }
 }

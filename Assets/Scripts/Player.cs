@@ -92,6 +92,7 @@ public class Player : MonoBehaviour
             _gameControllerScript.IncreaseScore(1);
             transform.position = newPosition;
             _animator.Play(_dash.name);
+            PlacementsVariable.ActivePlacement(_positionX, PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy));
         }
 
         else if (context.canceled)
@@ -139,6 +140,7 @@ public class Player : MonoBehaviour
 
             GameObject newEnemy = _enemiesController.SpawnEnemy(_positionX);
             _changeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
+            PlacementsVariable.ActivePlacement(_positionX, PlacementsVariable.GetIndexOfEnemyPostion(newEnemy));
         }
         else
         {
