@@ -35,6 +35,10 @@ public class Player : MonoBehaviour
     [SerializeField] private AnimationClip _slashB;
     [SerializeField] private AnimationClip _death;
 
+
+    [Header("Audio")]
+    private AudioManager _audioManager;
+
     private void Start()
     {
         _spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -43,6 +47,7 @@ public class Player : MonoBehaviour
         _gameControllerScript = FindFirstObjectByType<GameController>();
         _enemiesController = FindFirstObjectByType<EnemiesController>();
         _changeArrowsDirectionScript = FindFirstObjectByType<ChangeArrowsDirection>();
+        _audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     public void ResetPlayerPosition()
@@ -78,10 +83,10 @@ public class Player : MonoBehaviour
             {
                 _positionX--;
             }
-            ;
 
             Vector3 newPosition = transform.position;
             newPosition.x = PlacementsVariable.Placements[_positionX].transform.position.x;
+            _audioManager.PlaySFX(_audioManager.Dashs[Random.Range(0, _audioManager.Dashs.Count)]);
 
             if (Mathf.Approximately(newPosition.x, oldestEnemy.transform.position.x))
             {
@@ -90,6 +95,7 @@ public class Player : MonoBehaviour
             }
 
             _gameControllerScript.IncreaseScore(1);
+            _gameControllerScript.IncreaseSteps(1);
             transform.position = newPosition;
             _animator.Play(_dash.name);
             PlacementsVariable.ActivePlacement(_positionX, PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy));
@@ -134,6 +140,7 @@ public class Player : MonoBehaviour
         if (Mathf.Abs(enemyIndexPos - _positionX) == 1)
         {
             _gameControllerScript.IncreaseScore(5);
+            _gameControllerScript.IncreaseEnemiesKilled(1);
             StartCoroutineShowScoreText();
             enemyScript.DeathAnimation();
             _animator.Play(slashAnimation);
@@ -159,6 +166,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             PressButton(_buttonJ);
+            _audioManager.PlaySFX(_audioManager.SlashA);
         }
         else if (context.canceled)
         {
@@ -172,6 +180,7 @@ public class Player : MonoBehaviour
         if (context.performed)
         {
             PressButton(_buttonK);
+            _audioManager.PlaySFX(_audioManager.SlashB);
         }
         else if (context.canceled)
         {
@@ -186,12 +195,14 @@ public class Player : MonoBehaviour
         _gameControllerScript.GameOver();
 
         enemyScript.AttackAnimation();
+        _audioManager.PlaySFX(_audioManager.AttacksEnemy[Random.Range(0, _audioManager.AttacksEnemy.Count)]);
         StartCoroutine(PlayDeathAnimationWithDelay());
 
         System.Collections.IEnumerator PlayDeathAnimationWithDelay()
         {
             yield return new WaitForSeconds(_deathAnimationDelay);
             _animator.Play(_death.name);
+            //_audioManager.PlaySFX(_audioManager.Death);
         }
     }
 

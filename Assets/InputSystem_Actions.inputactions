@@ -51,6 +51,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "OpenSettingsMenu",
+                    "type": "Button",
+                    "id": "92839be5-afcd-4139-b7ab-4aca81dc5cab",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "AnyAction",
                     "type": "Button",
                     "id": "9ae24dcc-426a-4e5a-956d-831d7b5e739c",
@@ -96,30 +105,8 @@
                 },
                 {
                     "name": "",
-                    "id": "70f4a1ab-15d5-48df-89ab-9d5870922e4f",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SlashA",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8ef27817-ae7a-46be-9329-16730bc5dea8",
                     "path": "<Keyboard>/k",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SlashB",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "959d4686-b7b7-4633-8022-60921f2abd40",
-                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -142,28 +129,6 @@
                     "name": "",
                     "id": "d00e1be6-f649-48cd-94fa-68cebefc7885",
                     "path": "<Touchscreen>/Press",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ProcessGame",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "266a02c6-c9e0-4780-8c80-5471fec79198",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ProcessGame",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ff3a18c9-eea3-49a3-8a43-dd01050287d3",
-                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -217,23 +182,12 @@
                 },
                 {
                     "name": "",
-                    "id": "3383d66a-902e-470a-9c38-da989e2dd310",
-                    "path": "<Mouse>/leftButton",
+                    "id": "e20b4a8c-ce10-46c5-9f13-7f6bbf025c98",
+                    "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "AnyAction",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "17c993f3-e27b-416d-b558-a5613d682415",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "AnyAction",
+                    "action": "OpenSettingsMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -651,6 +605,17 @@
                     "processors": "",
                     "groups": "Touch",
                     "action": "Point",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7661c713-30a5-4b9b-b9e7-41f3601d3ad0",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Click",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

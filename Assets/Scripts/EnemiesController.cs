@@ -34,6 +34,7 @@ public class EnemiesController : MonoBehaviour
     {
         bool isEnemySpawnRight = Random.Range(0, 2) == 1;
         _isEnemyAIsNext = Random.Range(0, 2) == 1;
+        PlacementsVariable.changeColor(_isEnemyAIsNext);
         Vector3 firstSpawnPos = PlacementsVariable.Placements[isEnemySpawnRight ? _centerIndex + 2 : _centerIndex - 2].transform.position;
         firstSpawnPos.y += 0.625f;
         GameObject currentEnemy = Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, firstSpawnPos, Quaternion.identity);
@@ -43,6 +44,7 @@ public class EnemiesController : MonoBehaviour
         _player.GetComponent<Player>().UpdateFlipPlayer(currentEnemy);
         UpdateFlipEnemy(currentEnemy);
         _nextPosIcon.SetActive(true);
+        PlacementsVariable.ActivePlacement(PlacementsVariable.Placements.Length / 2, PlacementsVariable.GetIndexOfEnemyPostion(currentEnemy));
         return currentEnemy;
     }
 

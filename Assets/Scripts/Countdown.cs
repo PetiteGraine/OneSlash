@@ -31,6 +31,11 @@ public class Countdown : MonoBehaviour
         _timerSlider.value = _countdownTime;
     }
 
+    public float GetRemainingTime()
+    {
+        return _totalTime - _countdownTime;
+    }
+
     public void BeginTimer()
     {
         _isCountdownTimerOn = true;

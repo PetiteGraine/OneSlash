@@ -4,6 +4,7 @@ public class PlacementsVariable : MonoBehaviour
 {
     public static GameObject[] Placements;
     [SerializeField] private GameObject[] _placements;
+    private static bool _isPathActive = true;
     [SerializeField] private Color _setColorADark;
     [SerializeField] private Color _setColorBDark;
     [SerializeField] private Color _setColorAParticles;
@@ -36,6 +37,7 @@ public class PlacementsVariable : MonoBehaviour
 
     public static void ActivePlacement(int playerPos, int enemyPos)
     {
+        if (!_isPathActive) return;
         int startVFXIndex = playerPos + 1 * (enemyPos > playerPos ? 1 : -1);
         for (int i = 0; i < Placements.Length; i++)
         {
@@ -50,6 +52,7 @@ public class PlacementsVariable : MonoBehaviour
 
     public static void changeColor(bool isEnemyA)
     {
+        if (!_isPathActive) return;
         Color newColorDark = isEnemyA ? _colorADark : _colorBDark;
         Color newColorParticles = isEnemyA ? _colorAParticles : _colorBParticles;
         foreach (GameObject placement in Placements)
@@ -70,6 +73,20 @@ public class PlacementsVariable : MonoBehaviour
                     Color originalColor = main.startColor.color;
                     main.startColor = new Color(newColorParticles.r, newColorParticles.g, newColorParticles.b, originalColor.a);
                 }
+            }
+        }
+    }
+
+    public static void TogglePathActive()
+    {
+        _isPathActive = !_isPathActive;
+        if (_isPathActive) return;
+        foreach (GameObject placement in Placements)
+        {
+            placement.SetActive(false);
+            if (placement.transform.childCount > 0)
+            {
+                placement.transform.GetChild(0).gameObject.SetActive(false);
             }
         }
     }
