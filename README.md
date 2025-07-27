@@ -17,6 +17,8 @@ Be quick, be precise — one mistake and it's game over.
 Special thanks to my friend [William](https://wrdx.carrd.co/), he made the icons for the ui.
 
 This game uses assets from the Unity Asset Store:
+- [Music](https://alkakrab.itch.io/free-12-tracks-pixel-rpg-game-music-pack) by [Alkakrab](https://alkakrab.itch.io/).
+- [SFX](https://tommusic.itch.io/free-fantasy-200-sfx-pack) by [TomMusic](https://tommusic.itch.io/)
 - Character models by [Clembod](https://assetstore.unity.com/publishers/50715).
 - [Tileset and Props](https://assetstore.unity.com/packages/2d/environments/pixel-art-platformer-village-props-166114) by [Cainos](https://assetstore.unity.com/publishers/40001).
 - [UI](https://assetstore.unity.com/packages/2d/gui/icons/steampunkui-238976) by [Gentleland](https://assetstore.unity.com/publishers/35710).
