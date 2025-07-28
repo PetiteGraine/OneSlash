@@ -6,22 +6,21 @@ using UnityEngine.UI;
 
 public class Countdown : MonoBehaviour
 {
-    [Header("Timer Settings")]
+    [Header("Timer settings")]
     [SerializeField] private float _totalTime = 60f;
     private bool _isCountdownTimerOn = false;
 
-    [Header("UI Elements")]
+    [Header("UI elements")]
     [SerializeField] private Slider _timerSlider;
     private float _countdownTime;
     [SerializeField] private TextMeshProUGUI _timerText;
 
+    [Header("Internal state")]
     private TimeSpan _timePlaying;
-    private GameObject _gameplayController;
 
     private void Start()
     {
         _timerText.text = _totalTime.ToString("F2");
-        _gameplayController = GameObject.FindGameObjectWithTag("GameController");
     }
 
     public void ResetTimer()
@@ -51,7 +50,7 @@ public class Countdown : MonoBehaviour
     private void EndTimer()
     {
         _isCountdownTimerOn = false;
-        _gameplayController.GetComponent<GameController>().GameOver();
+        GetScripts.GameControllerScript.GetComponent<GameController>().GameOver();
         StopCoroutine(UpdateTimer());
     }
 

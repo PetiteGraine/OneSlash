@@ -5,25 +5,18 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [Header("Player Position")]
+    [Header("Player position")]
     private int _positionX;
     private int _initialPosX;
 
-
-    [Header("Game Controllers")]
-    private GameController _gameControllerScript;
-    private EnemiesController _enemiesController;
-    private ChangeArrowsDirection _changeArrowsDirectionScript;
-
-    [Header("UI Elements")]
+    [Header("UI elements")]
     [SerializeField] private GameObject _canvasScoreNearPlayerText;
     private float __canvasScoreNearPlayerTextPosOffestX = 2f;
     private Coroutine _scoreTextCoroutine;
-    [SerializeField] private Button _buttonD;
-    [SerializeField] private Button _buttonF;
-    [SerializeField] private Button _buttonJ;
+    [SerializeField] private Button[] _buttonsD;
+    [SerializeField] private Button[] _buttonsF;
+    [SerializeField] private Button[] _buttonsJ;
     [SerializeField] private Button _buttonK;
-
 
     [Header("Animation")]
     private SpriteRenderer _spriteRenderer;
@@ -35,7 +28,6 @@ public class Player : MonoBehaviour
     [SerializeField] private AnimationClip _slashB;
     [SerializeField] private AnimationClip _death;
 
-
     [Header("Audio")]
     private AudioManager _audioManager;
 
@@ -44,9 +36,6 @@ public class Player : MonoBehaviour
         _spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         _initialPosX = PlacementsVariable.Placements.Length / 2;
         _positionX = _initialPosX;
-        _gameControllerScript = FindFirstObjectByType<GameController>();
-        _enemiesController = FindFirstObjectByType<EnemiesController>();
-        _changeArrowsDirectionScript = FindFirstObjectByType<ChangeArrowsDirection>();
         _audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
@@ -63,17 +52,23 @@ public class Player : MonoBehaviour
     {
         if (context.performed)
         {
-            if (context.action.name == "Move1")
-                PressButton(_buttonD);
+            if (context.action.name == "Move1" || !GameController.ProModeEnabled)
+                foreach (var _buttonD in _buttonsD)
+                {
+                    PressButton(_buttonD);
+                }
             else
             {
-                PressButton(_buttonF);
+                foreach (var _buttonF in _buttonsF)
+                {
+                    PressButton(_buttonF);
+                }
             }
 
-            if (_gameControllerScript.IsGameOver) return;
+            if (GetScripts.GameControllerScript.IsGameOver) return;
 
-            _enemiesController.RefreshEnemyList();
-            GameObject oldestEnemy = _enemiesController.Enemies[0];
+            GetScripts.EnemiesControllerScript.RefreshEnemyList();
+            GameObject oldestEnemy = GetScripts.EnemiesControllerScript.Enemies[0];
 
             if (oldestEnemy.transform.position.x > transform.position.x)
             {
@@ -94,8 +89,8 @@ public class Player : MonoBehaviour
                 return;
             }
 
-            _gameControllerScript.IncreaseScore(1);
-            _gameControllerScript.IncreaseSteps(1);
+            GetScripts.GameControllerScript.IncreaseScore(1);
+            GetScripts.GameControllerScript.IncreaseSteps(1);
             transform.position = newPosition;
             _animator.Play(_dash.name);
             PlacementsVariable.ActivePlacement(_positionX, PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy));
@@ -103,10 +98,16 @@ public class Player : MonoBehaviour
 
         else if (context.canceled)
         {
-            if (context.action.name == "Move1")
-                ReleaseButton(_buttonD);
+            if (context.action.name == "Move1" || !GameController.ProModeEnabled)
+                foreach (var _buttonD in _buttonsD)
+                {
+                    ReleaseButton(_buttonD);
+                }
             else
-                ReleaseButton(_buttonF);
+                foreach (var _buttonF in _buttonsF)
+                {
+                    ReleaseButton(_buttonF);
+                }
         }
     }
 
@@ -123,12 +124,12 @@ public class Player : MonoBehaviour
 
     private void Slash(InputAction.CallbackContext context, string validEnemyName, string slashAnimation)
     {
-        if (!context.performed || _gameControllerScript.IsGameOver) return;
+        if (!context.performed || GetScripts.GameControllerScript.IsGameOver) return;
 
-        _enemiesController.RefreshEnemyList();
+        GetScripts.EnemiesControllerScript.RefreshEnemyList();
 
-        GameObject oldestEnemy = _enemiesController.Enemies[0];
-        Enemy enemyScript = oldestEnemy.GetComponent<Enemy>();
+        GameObject oldestEnemy = GetScripts.EnemiesControllerScript.Enemies[0];
+        EnemyAnimation enemyScript = oldestEnemy.GetComponent<EnemyAnimation>();
         int enemyIndexPos = PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy);
 
         if (!oldestEnemy.name.StartsWith(validEnemyName))
@@ -139,14 +140,14 @@ public class Player : MonoBehaviour
 
         if (Mathf.Abs(enemyIndexPos - _positionX) == 1)
         {
-            _gameControllerScript.IncreaseScore(5);
-            _gameControllerScript.IncreaseEnemiesKilled(1);
+            GetScripts.GameControllerScript.IncreaseScore(5);
+            GetScripts.GameControllerScript.IncreaseEnemiesKilled(1);
             StartCoroutineShowScoreText();
             enemyScript.DeathAnimation();
             _animator.Play(slashAnimation);
 
-            GameObject newEnemy = _enemiesController.SpawnEnemy(_positionX);
-            _changeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
+            GameObject newEnemy = GetScripts.EnemiesControllerScript.SpawnEnemy(_positionX);
+            GetScripts.ChangeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
             PlacementsVariable.ActivePlacement(_positionX, PlacementsVariable.GetIndexOfEnemyPostion(newEnemy));
         }
         else
@@ -157,7 +158,7 @@ public class Player : MonoBehaviour
 
     public void InitArrowDirection(GameObject newEnemy)
     {
-        _changeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
+        GetScripts.ChangeArrowsDirectionScript.UpdateArrowDirection(transform.position.x < newEnemy.transform.position.x);
     }
 
     public void SlashA(InputAction.CallbackContext context)
@@ -165,12 +166,18 @@ public class Player : MonoBehaviour
         Slash(context, "EnemyA", _slashA.name);
         if (context.performed)
         {
-            PressButton(_buttonJ);
+            foreach (var _buttonJ in _buttonsJ)
+            {
+                PressButton(_buttonJ);
+            }
             _audioManager.PlaySFX(_audioManager.SlashA);
         }
         else if (context.canceled)
         {
-            ReleaseButton(_buttonJ);
+            foreach (var _buttonJ in _buttonsJ)
+            {
+                ReleaseButton(_buttonJ);
+            }
         }
     }
 
@@ -190,12 +197,12 @@ public class Player : MonoBehaviour
 
     private void Die()
     {
-        GameObject oldestEnemy = _enemiesController.Enemies[0];
-        Enemy enemyScript = oldestEnemy.GetComponent<Enemy>();
-        _gameControllerScript.GameOver();
+        GameObject oldestEnemy = GetScripts.EnemiesControllerScript.Enemies[0];
+        EnemyAnimation enemyScript = oldestEnemy.GetComponent<EnemyAnimation>();
+        GetScripts.GameControllerScript.GameOver();
 
         enemyScript.AttackAnimation();
-        _audioManager.PlaySFX(_audioManager.AttacksEnemy[Random.Range(0, _audioManager.AttacksEnemy.Count)]);
+        _audioManager.PlaySFX(_audioManager.EnemyAttacks[Random.Range(0, _audioManager.EnemyAttacks.Count)]);
         StartCoroutine(PlayDeathAnimationWithDelay());
 
         System.Collections.IEnumerator PlayDeathAnimationWithDelay()
@@ -216,7 +223,7 @@ public class Player : MonoBehaviour
 
     private System.Collections.IEnumerator ShowScoreTextCoroutine()
     {
-        _gameControllerScript.UpdateScoreNearPlayer();
+        GetScripts.GameControllerScript.UpdateScoreNearPlayer();
         UpdateScoreNearPlayerPos();
         var anim = _canvasScoreNearPlayerText.transform.GetChild(0).GetComponent<Animation>();
         anim.Stop();

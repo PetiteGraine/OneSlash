@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyAnimation : MonoBehaviour
 {
     [Header("Animation")]
     [SerializeField] private Animator _animator;
@@ -17,6 +17,6 @@ public class Enemy : MonoBehaviour
     {
         gameObject.tag = "Untagged";
         _animator.Play(_death.name);
-        Destroy(gameObject, _death.length / 2f);
+        Destroy(gameObject, _death.length / 6f);
     }
 }

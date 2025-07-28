@@ -4,29 +4,36 @@ using UnityEngine.InputSystem;
 
 public class GameController : MonoBehaviour
 {
-    [Header("UI Elements")]
-    private int _score;
-    private int _steps;
-    private int _enemiesKilled;
+    [Header("Top UI elements")]
     [SerializeField] private TextMeshProUGUI _scoreText;
+    [SerializeField] private TextMeshProUGUI _highscoreText;
+    [SerializeField] private TextMeshProUGUI _deathCountText;
+
+    [Header("Score details UI elements")]
+    [SerializeField] private GameObject _scoreDetails;
     [SerializeField] private TextMeshProUGUI _scoreInDetailsText;
     [SerializeField] private TextMeshProUGUI _stepsText;
     [SerializeField] private TextMeshProUGUI _enemiesKilledText;
     [SerializeField] private TextMeshProUGUI _timeSurvivedText;
+
+    [Header("Other UI elements")]
     [SerializeField] private TextMeshProUGUI _scoreNearPlayerText;
-    private int _highscore;
-    [SerializeField] private TextMeshProUGUI _highscoreText;
     [SerializeField] private TextMeshProUGUI _pressToStartText;
-    [SerializeField] private GameObject _scoreDetails;
+
+    [Header("Game stats")]
+    private int _score;
+    private int _steps;
+    private int _enemiesKilled;
+    private int _highscore;
     private int _deathCount = 0;
-    [SerializeField] private TextMeshProUGUI _deathCountText;
-    
-    [Header("Game State")]
     public bool IsGameOver;
     private bool _isGameStarted;
-    private GameObject _gameplayController;
+    public static bool ProModeEnabled = false;
+
+    [Header("References")]
     private GameObject _player;
-    private Player _playerscript;
+
+    [Header("Game over settings")]
     private float _gameOverTime = -1f;
     private float _restartDelay = 0.01f;
 
@@ -34,8 +41,6 @@ public class GameController : MonoBehaviour
     {
         _score = 0;
         _highscore = 0;
-        _gameplayController = GameObject.FindGameObjectWithTag("GameController");
-        _playerscript = FindFirstObjectByType<Player>();
         _player = GameObject.FindGameObjectWithTag("Player");
         _player.GetComponent<Player>().ResetPlayerPosition();
         IsGameOver = true;
@@ -47,13 +52,13 @@ public class GameController : MonoBehaviour
         IsGameOver = true;
         _isGameStarted = false;
         _gameOverTime = Time.unscaledTime;
-        _gameplayController.GetComponent<Countdown>().StopTimer();
+        GetScripts.GameControllerScript.GetComponent<Countdown>().StopTimer();
         _deathCount++;
         _deathCountText.text = _deathCount.ToString("D4");
         _scoreInDetailsText.text = "Score: " + _score.ToString("D4");
         _stepsText.text = "Steps: " + _steps.ToString("D4");
         _enemiesKilledText.text = "Slashs: " + _enemiesKilled.ToString("D4");
-        _timeSurvivedText.text = "Time survived: " + _gameplayController.GetComponent<Countdown>().GetRemainingTime().ToString("F2");
+        _timeSurvivedText.text = "Time survived: " + GetScripts.GameControllerScript.GetComponent<Countdown>().GetRemainingTime().ToString("F2");
         _scoreDetails.gameObject.SetActive(true);
     }
 
@@ -80,9 +85,9 @@ public class GameController : MonoBehaviour
             _pressToStartText.gameObject.SetActive(false);
             _scoreDetails.gameObject.SetActive(false);
             DestroyAllEnemies();
-            GameObject newEnemy = _gameplayController.GetComponent<EnemiesController>().FirstSpawnEnemy();
-            _gameplayController.GetComponent<Countdown>().ResetTimer();
-            _playerscript.InitArrowDirection(newEnemy);
+            GameObject newEnemy = GetScripts.GameControllerScript.GetComponent<EnemiesController>().FirstSpawnEnemy();
+            GetScripts.GameControllerScript.GetComponent<Countdown>().ResetTimer();
+            GetScripts.PlayerScript.InitArrowDirection(newEnemy);
             IsGameOver = false;
             _isGameStarted = false;
             return;
@@ -91,7 +96,7 @@ public class GameController : MonoBehaviour
         if (!IsGameOver && !_isGameStarted)
         {
             _isGameStarted = true;
-            _gameplayController.GetComponent<Countdown>().BeginTimer();
+            GetScripts.GameControllerScript.GetComponent<Countdown>().BeginTimer();
             return;
         }
     }
@@ -129,7 +134,7 @@ public class GameController : MonoBehaviour
             _highscoreText.text = "Highscore : " + _highscore.ToString();
         }
     }
-    
+
     public void UpdateScoreNearPlayer()
     {
         _scoreNearPlayerText.text = _score.ToString();

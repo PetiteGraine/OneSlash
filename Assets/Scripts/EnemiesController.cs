@@ -3,17 +3,17 @@ using UnityEngine.UI;
 
 public class EnemiesController : MonoBehaviour
 {
-    [Header("Enemy Prefabs")]
+    [Header("Enemy prefabs")]
     [SerializeField] private GameObject _enemyAPrefab;
     [SerializeField] private GameObject _enemyBPrefab;
 
-    [Header("UI Elements")]
+    [Header("UI elements")]
     [SerializeField] private GameObject _nextPosIcon;
     [SerializeField] private Image _nextPosIconImage;
     [SerializeField] private Color _nextPosColorA;
     [SerializeField] private Color _nextPosColorB;
 
-    [Header("Enemy Management")]
+    [Header("Enemy management")]
     public GameObject[] Enemies;
     private bool _isEnemyAIsNext;
     private int _centerIndex;

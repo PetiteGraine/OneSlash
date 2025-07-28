@@ -2,11 +2,18 @@ using UnityEngine;
 
 public class PlacementsVariable : MonoBehaviour
 {
+    [Header("Placements")]
     public static GameObject[] Placements;
     [SerializeField] private GameObject[] _placements;
+
+    [Header("Path state")]
     private static bool _isPathActive = true;
+
+    [Header("Colors - Dark")]
     [SerializeField] private Color _setColorADark;
     [SerializeField] private Color _setColorBDark;
+
+    [Header("Colors - Particles")]
     [SerializeField] private Color _setColorAParticles;
     [SerializeField] private Color _setColorBParticles;
     private static Color _colorADark;
@@ -41,7 +48,7 @@ public class PlacementsVariable : MonoBehaviour
         int startVFXIndex = playerPos + 1 * (enemyPos > playerPos ? 1 : -1);
         for (int i = 0; i < Placements.Length; i++)
         {
-            bool shouldBeActive = (i >= Mathf.Min(startVFXIndex, enemyPos) && i <= Mathf.Max(startVFXIndex, enemyPos));
+            bool shouldBeActive = i >= Mathf.Min(startVFXIndex, enemyPos) && i <= Mathf.Max(startVFXIndex, enemyPos);
             Placements[i].SetActive(shouldBeActive);
             if (Placements[i].transform.childCount > 0)
             {

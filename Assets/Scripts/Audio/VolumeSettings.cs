@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 public class VolumeSettings : MonoBehaviour
 {
+    [Header("Audio mixer")]
     [SerializeField] private AudioMixer _myMixer;
+
+    [Header("UI sliders")]
     [SerializeField] private Slider _musicSlider;
     [SerializeField] private Slider _sfxSlider;
 
-    private void Start()
+    private void Awake()
     {
         setMusicVolume();
         setSFXVolume();

@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("---- Audio Source ----")]
+    [Header("Audio sources")]
     [SerializeField] private AudioSource _musicSource;
     [SerializeField] private AudioSource _soundEffectSource;
 
-    [Header("---- Audio Clip ----")]
+    [Header("Audio clips")]
     public AudioClip Music;
-    public List<AudioClip> AttacksEnemy = new List<AudioClip>();
+    public List<AudioClip> EnemyAttacks = new List<AudioClip>();
     public List<AudioClip> Dashs = new List<AudioClip>();
     public AudioClip SlashA;
     public AudioClip SlashB;
