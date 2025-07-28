@@ -11,7 +11,7 @@ public class Player : MonoBehaviour
 
     [Header("UI elements")]
     [SerializeField] private GameObject _canvasScoreNearPlayerText;
-    private float __canvasScoreNearPlayerTextPosOffestX = 2f;
+    private float __canvasScoreNearPlayerTextPosOffestX = 2.5f;
     private Coroutine _scoreTextCoroutine;
     [SerializeField] private Button[] _buttonsD;
     [SerializeField] private Button[] _buttonsF;

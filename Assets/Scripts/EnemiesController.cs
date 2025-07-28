@@ -36,7 +36,7 @@ public class EnemiesController : MonoBehaviour
         _isEnemyAIsNext = Random.Range(0, 2) == 1;
         PlacementsVariable.changeColor(_isEnemyAIsNext);
         Vector3 firstSpawnPos = PlacementsVariable.Placements[isEnemySpawnRight ? _centerIndex + 2 : _centerIndex - 2].transform.position;
-        firstSpawnPos.y += 0.625f;
+        firstSpawnPos.y += 0.875f;
         GameObject currentEnemy = Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, firstSpawnPos, Quaternion.identity);
         _nextPosIcon.transform.position = new Vector3(PlacementsVariable.Placements[isEnemySpawnRight ? _centerIndex - 2 : _centerIndex + 2].transform.position.x, _nextPosIcon.transform.position.y, 0);
         UpdateNextIconImage();
@@ -52,7 +52,7 @@ public class EnemiesController : MonoBehaviour
     {
         PlacementsVariable.changeColor(_isEnemyAIsNext);
         Vector3 enemyPos = _nextPosIcon.transform.position;
-        enemyPos.y -= _nextPosIcon.transform.position.y - 0.5f;
+        enemyPos.y -= _nextPosIcon.transform.position.y - 0.75f;
         GameObject currentEnemy = Instantiate(_isEnemyAIsNext ? _enemyAPrefab : _enemyBPrefab, enemyPos, Quaternion.identity);
         int currentEnemyIndex = PlacementsVariable.GetIndexOfEnemyPostion(currentEnemy);
         UpdateNextEnemyPos(playerPos, currentEnemyIndex);
