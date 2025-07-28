@@ -113,14 +113,23 @@ public class Player : MonoBehaviour
 
     public void UpdateFlipPlayer(GameObject currentEnemy)
     {
-        if (currentEnemy.transform.position.x > transform.position.x) _spriteRenderer.flipX = false;
-        else _spriteRenderer.flipX = true;
+        if (currentEnemy.transform.position.x <= transform.position.x == _spriteRenderer.flipX) return;
+        StartCoroutine(WaitAndFlip(_slashA.length / 4f, currentEnemy));
+    }
+
+    private System.Collections.IEnumerator WaitAndFlip(float waitTime, GameObject currentEnemy)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        bool shouldFlip = currentEnemy.transform.position.x <= transform.position.x;
+        _spriteRenderer.flipX = shouldFlip;
 
         var child = transform.GetChild(0);
         Vector3 localPos = child.localPosition;
-        localPos.x = _spriteRenderer.flipX ? -Mathf.Abs(_spriteRenderer.transform.localPosition.x) : Mathf.Abs(_spriteRenderer.transform.localPosition.x);
+        localPos.x = shouldFlip ? -Mathf.Abs(_spriteRenderer.transform.localPosition.x) : Mathf.Abs(_spriteRenderer.transform.localPosition.x);
         _spriteRenderer.transform.localPosition = localPos;
     }
+
 
     private void Slash(InputAction.CallbackContext context, string validEnemyName, string slashAnimation)
     {
