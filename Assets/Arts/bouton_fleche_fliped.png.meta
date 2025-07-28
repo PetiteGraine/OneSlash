@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      bouton_fleche_fliped_0: -809116031356098268
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
