@@ -16,7 +16,7 @@ Be quick, be precise — one mistake and it's game over.
 ## Credits
 Special thanks to my friend [William](https://wrdx.carrd.co/), he created a few icons (the skull, the sword, the arrow button) for the UI.
 
-This game uses assets from the Unity Asset Store:
+This game uses assets from the Unity Asset Store and itch.io:
 - [Music](https://alkakrab.itch.io/free-12-tracks-pixel-rpg-game-music-pack) by [Alkakrab](https://alkakrab.itch.io/).
 - [SFX](https://tommusic.itch.io/free-fantasy-200-sfx-pack) by [TomMusic](https://tommusic.itch.io/)
 - Character models by [Clembod](https://assetstore.unity.com/publishers/50715).
