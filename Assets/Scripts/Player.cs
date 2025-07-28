@@ -27,6 +27,8 @@ public class Player : MonoBehaviour
     [SerializeField] private AnimationClip _slashA;
     [SerializeField] private AnimationClip _slashB;
     [SerializeField] private AnimationClip _death;
+    private Coroutine _flipCoroutine;
+
 
     [Header("Audio")]
     private AudioManager _audioManager;
@@ -92,6 +94,7 @@ public class Player : MonoBehaviour
             GetScripts.GameControllerScript.IncreaseScore(1);
             GetScripts.GameControllerScript.IncreaseSteps(1);
             transform.position = newPosition;
+            CancelFlipAndForceUpdate(oldestEnemy);
             _animator.Play(_dash.name);
             PlacementsVariable.ActivePlacement(_positionX, PlacementsVariable.GetIndexOfEnemyPostion(oldestEnemy));
         }
@@ -113,8 +116,13 @@ public class Player : MonoBehaviour
 
     public void UpdateFlipPlayer(GameObject currentEnemy)
     {
-        if (currentEnemy.transform.position.x <= transform.position.x == _spriteRenderer.flipX) return;
-        StartCoroutine(WaitAndFlip(_slashA.length / 4f, currentEnemy));
+        if ((currentEnemy.transform.position.x <= transform.position.x) == _spriteRenderer.flipX)
+            return;
+
+        if (_flipCoroutine != null)
+            StopCoroutine(_flipCoroutine);
+
+        _flipCoroutine = StartCoroutine(WaitAndFlip(_slashA.length / 4f, currentEnemy));
     }
 
     private System.Collections.IEnumerator WaitAndFlip(float waitTime, GameObject currentEnemy)
@@ -126,10 +134,34 @@ public class Player : MonoBehaviour
 
         var child = transform.GetChild(0);
         Vector3 localPos = child.localPosition;
-        localPos.x = shouldFlip ? -Mathf.Abs(_spriteRenderer.transform.localPosition.x) : Mathf.Abs(_spriteRenderer.transform.localPosition.x);
+        localPos.x = shouldFlip ? -Mathf.Abs(_spriteRenderer.transform.localPosition.x)
+                                : Mathf.Abs(_spriteRenderer.transform.localPosition.x);
         _spriteRenderer.transform.localPosition = localPos;
+
+        _flipCoroutine = null;
     }
 
+    public void CancelFlipAndForceUpdate(GameObject currentEnemy)
+    {
+        if (_flipCoroutine != null)
+        {
+            StopCoroutine(_flipCoroutine);
+            _flipCoroutine = null;
+        }
+
+        UpdateFlipImmediate(currentEnemy);
+    }
+    private void UpdateFlipImmediate(GameObject currentEnemy)
+    {
+        bool shouldFlip = currentEnemy.transform.position.x <= transform.position.x;
+        _spriteRenderer.flipX = shouldFlip;
+
+        var child = transform.GetChild(0);
+        Vector3 localPos = child.localPosition;
+        localPos.x = shouldFlip ? -Mathf.Abs(_spriteRenderer.transform.localPosition.x)
+                                : Mathf.Abs(_spriteRenderer.transform.localPosition.x);
+        _spriteRenderer.transform.localPosition = localPos;
+    }
 
     private void Slash(InputAction.CallbackContext context, string validEnemyName, string slashAnimation)
     {
