@@ -14,7 +14,7 @@ If you **slash into empty space**, you die. If you **move onto a monster**, you 
 Be quick, be precise — one mistake and it's game over.
 
 ## Credits
-Special thanks to my friend [William](https://wrdx.carrd.co/), he made the icons for the ui.
+Special thanks to my friend [William](https://wrdx.carrd.co/), he created a few icons (the skull, the sword, the arrow button) for the UI.
 
 This game uses assets from the Unity Asset Store:
 - [Music](https://alkakrab.itch.io/free-12-tracks-pixel-rpg-game-music-pack) by [Alkakrab](https://alkakrab.itch.io/).
