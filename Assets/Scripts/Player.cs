@@ -129,6 +129,11 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
+        if (currentEnemy == null)
+        {
+            yield break;
+        }
+
         bool shouldFlip = currentEnemy.transform.position.x <= transform.position.x;
         _spriteRenderer.flipX = shouldFlip;
 
