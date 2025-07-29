@@ -64,8 +64,8 @@ public class EnemiesController : MonoBehaviour
 
     private void UpdateNextEnemyPos(int excludedIndex, int currentEnemyIndex)
     {
-        int[] availableIndices = new int[PlacementsVariable.Placements.Length - 1];
-        for (int i = 0, j = 0; i < PlacementsVariable.Placements.Length - 1; i++)
+        int[] availableIndices = new int[PlacementsVariable.Placements.Length];
+        for (int i = 0, j = 0; i < PlacementsVariable.Placements.Length; i++)
         {
             if (i == excludedIndex) continue;
             if (currentEnemyIndex < excludedIndex && i == currentEnemyIndex + 1) continue;
