@@ -17,6 +17,8 @@ If you **slash into empty space**, you die. If you **move onto a monster**, you 
 Be quick, be precise — one mistake and it's game over.
 
 ## Credits
+This game is inspired by the mobile game OnePunch.
+
 Special thanks to my friend [William](https://wrdx.carrd.co/), he created a few icons (the skull, the sword, the arrow button) for the UI.
 
 This game uses assets from the Unity Asset Store and itch.io:
