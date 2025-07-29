@@ -5,7 +5,7 @@
 This is an arcade game in which you kill monsters with a single slash. Your objective is to get the highest score possible in 60 seconds.
 
 ## How to play
-- Press **D** or the **arrow button** to **move toward the monster**. 
+- Press **D** or **F** or the **arrow button** to **move toward the monster**. 
 - Press **J** or the **purple sword button** to slash **purple monsters**. 
 - Press **K** or the **orange sword button** to slash **orange monsters**.
 
