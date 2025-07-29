@@ -1,13 +1,13 @@
 # OneSlash
 
-![OneSlash](https://github.com/user-attachments/assets/e4b439af-20c1-49be-a9b8-2207984ae175)
+![OneSlash_v1](https://github.com/user-attachments/assets/91ba6871-2346-4c76-9ae1-1968da22651a)
 
 This is an arcade game in which you kill monsters with a single slash. Your objective is to get the highest score possible in 60 seconds.
 
 ## How to play
-- Press **D** or **F** to **move toward the monster**. 
-- Press **J** or **Left Click** to slash **purple monsters**. 
-- Press **K** or **Right Click** to slash **orange monsters**.
+- Press **D** or the **arrow button** to **move toward the monster**. 
+- Press **J** or the **purple sword button** to slash **purple monsters**. 
+- Press **K** or the **orange sword button** to slash **orange monsters**.
 
 If you **slash into empty space**, you die. If you **move onto a monster**, you die.
 
